@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VERKINA — Verification Step Complete</title>
+  <!--
+    VERKINA — digilocker-callback.html
+    NEW (Aug 30, 2026 — Aadhaar tier build, aadhar+pan session)
+
+    This is the DIGILOCKER_REDIRECT_URL Setu's "Create a DigiLocker
+    request" call is given (see routes/kyc-route.js), and it must be
+    the exact same URL, as a prefix, that
+    kDigilockerRedirectUrlPrefix in digilocker_webview_screen.dart
+    checks against.
+
+    Its content barely matters. VERKINA's own WebView intercepts the
+    navigation to this URL at request-start — before it ever actually
+    loads — reads success/id/scope off the query string Setu attaches,
+    and closes the WebView right there. A real user essentially never
+    sees this page rendered. It exists only because Setu's own docs
+    require redirectUrl to be "a valid publicly hosted URL" — i.e. it
+    has to be real and answer over HTTPS, not that anything has to
+    happen once it loads. This is the fallback for the rare case
+    interception doesn't fire in time (an old app version, a WebView
+    engine quirk) — so it's still a real, non-broken page, just not
+    one anything depends on.
+
+    Host this wherever's already live and reachable — Firebase
+    Hosting fits VERKINA's existing stack, but any static host works
+    equally well; this page makes zero calls of its own and needs no
+    backend. Deliberately NOT on api.verkina.com — that's the VPS
+    deploy this project has been blocked on elsewhere (webhooks, the
+    Mandate Cancel button), and this flow has no reason to inherit
+    that block.
+  -->
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; text-align: center; padding-top: 72px; color: #1A1A2E; background: #F4F4F6;">
+  <h2 style="color: #0D0D2B;">Verification step complete</h2>
+  <p style="color: #6B7280; font-size: 14px;">You can close this window and return to the VERKINA app.</p>
+</body>
+</html>
